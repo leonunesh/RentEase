@@ -1,14 +1,27 @@
 class User {
-    constructor(email, password) {
+    constructor(fName, lName, birthDate, email, password) {
+        this.fName = fName;
+        this.lName = lName;
+        this.birthDate = birthDate;
         this.email = email;
         this.password = password;
     }
 
     save() {
-        localStorage.setItem("user:" + this.email, this.password);
+        localStorage.setItem("user:" + this.email, JSON.stringify(this));
     }
 
-    checkLogin() {
-        return localStorage.getItem(this.email) == this.password;
+    static login(email, password) {
+        const data = localStorage.getItem("user:" + email);
+
+        if (!data) return false;
+
+        const user = JSON.parse(data);
+
+        return user.password === password;
     }
+}
+
+function logout() {
+  localStorage.removeItem("currentUser");
 }

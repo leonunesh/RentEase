@@ -28,27 +28,38 @@
         <label for="confirmPassword">Confirm your password:</label><br>
         <input type="password" name="consfirmPassword" id="confirmPassword" required><br><br>
 
-        <button type="submit">Register</button>
+        <input type="button" onclick="register()" value="Register">
     </form>
+    <script src="script.js"></script>
+    <script>
 
-</body>
-<script src="script.js">
-    let signup = () => {
-        let email = document.getElementById('email').value;
-        let password = document.getElementById("password").value;
-        let passwordConfirmation = document.querySelector('#password-confirmation').value;
- 
-        if (password != passwordConfirmation) {
-            alert("Passwords do not match");
-            return;
-        } else {
+        function register() {
+            let fName = document.getElementById('fName').value;
+            let lName = document.getElementById('lName').value;
+            let birthDate = document.getElementById('birthDate').value;
+            let email = document.getElementById('email').value;
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.querySelector('#confirmPassword').value;
 
-            let user = new User(email, password);
+            if (password != confirmPassword) {
+                alert("Passwords do not match");
+                return;
+            }
+
+            // Check if user already exists
+            if (localStorage.getItem("user:" + email)) {
+                alert("A user with this email already exists");
+                return;
+            }
+
+            let user = new User(fName, lName, birthDate, email, password);
             user.save();
-        }
 
-        window.location.href = "LoginPage.html";
-    }
-</script>
+            // Redirect to login page
+            window.location.href = "LoginPage.html";
+        };
+
+    </script>
+</body>
 
 </html>

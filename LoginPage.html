@@ -16,10 +16,31 @@
         <label for="password">Password:</label><br>
         <input type="password" name="password" id="password" required><br><br>
 
-        <button type="submit">Register</button>
+        <button type="button" onclick="login()">Register</button>
     </form>
 </body>
 <script src="script.js">
+    function login(email, password) {
+    const data = localStorage.getItem("user:" + email);
+
+    if (!data) {
+        alert("User not found");
+        return false;
+    }
+
+    const user = JSON.parse(data);
+
+    if (user.password !== password) {
+        alert("Incorrect password");
+        return false;
+    }
+
+    // Set current user
+    localStorage.setItem("currentUser", email);
+
+    return true;
+    window.location.href = "HomePage.html"
+}
 </script>
 
 </html>
