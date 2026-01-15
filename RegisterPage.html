@@ -45,7 +45,6 @@
 
             let user = new User(email, password);
             user.save();
-            localStorage.setItem("loggedInUser", user.email);
         }
 
         window.location.href = "LoginPage.html";
