@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" src="style.css">
+    <title>RentEase</title>
+</head>
+
+<body>
+    <form>
+        <label for="fName">First name:</label><br>
+        <input type="text" name="fName" id="fName" required><br><br>
+
+        <label for="lName">Last name:</label><br>
+        <input type="text" name="lName" id="lName" required><br><br>
+
+        <label for="bithDate">Birthdate:</label><br>
+        <input type="date" name="birthDate" id="birthDate" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" name="email" id="email" required><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" name="password" id="password" required><br><br>
+
+        <label for="confirmPassword">Confirm your password:</label><br>
+        <input type="password" name="consfirmPassword" id="confirmPassword" required><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+</body>
+<script src="script.js">
+    let signup = () => {
+        let email = document.getElementById('email').value;
+        let password = document.getElementById("password").value;
+        let passwordConfirmation = document.querySelector('#password-confirmation').value;
+ 
+        if (password != passwordConfirmation) {
+            alert("Passwords do not match");
+            return;
+        } else {
+
+            let user = new User(email, password);
+            user.save();
+            localStorage.setItem("loggedInUser", user.email);
+        }
+
+        window.location.href = "LoginPage.html";
+    }
+</script>
+
+</html>
