@@ -30,8 +30,12 @@
 
         <input type="button" onclick="register()" value="Register">
     </form>
-    <script src="script.js"></script>
     <script>
+
+        function validPassword(password) {
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            return regex.test(password);
+        }
 
         function register() {
             let fName = document.getElementById('fName').value;
@@ -39,7 +43,7 @@
             let birthDate = document.getElementById('birthDate').value;
             let email = document.getElementById('email').value;
             let password = document.getElementById("password").value;
-            let confirmPassword = document.querySelector('#confirmPassword').value;
+            let confirmPassword = document.getElementById('confirmPassword').value;
 
             if (password != confirmPassword) {
                 alert("Passwords do not match");
@@ -52,6 +56,12 @@
                 return;
             }
 
+            if (!validPassword(password)) {
+                alert("Your password must contain at least: 1 letter; 1 number; 1 special character; 8 digits");
+                return;
+            }
+
+
             let user = new User(fName, lName, birthDate, email, password);
             user.save();
 
@@ -60,6 +70,7 @@
         };
 
     </script>
+    <script src="script.js"></script>
 </body>
 
 </html>

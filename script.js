@@ -13,15 +13,35 @@ class User {
 
     static login(email, password) {
         const data = localStorage.getItem("user:" + email);
-
-        if (!data) return false;
+        if (!data) return { success: false, error: "User not found" };
 
         const user = JSON.parse(data);
 
-        return user.password === password;
+        if (user.password !== password)
+            return { success: false, error: "Incorrect password" };
+
+        return { success: true, user };
+    }
+}
+
+class Flat {
+    constructor(flName, city, stName, stNumb, area, ac, yearBuild, price, dateAvailable){
+    this.flName = flName;
+    this.city = city;
+    this.stName = stName;
+    this.stNumb = stNumb;
+    this.area = area;
+    this.ac = ac;
+    this.yearBuild = yearBuild;
+    this.price = price;
+    this.dateAvailable = dateAvailable;
+    }
+
+    save(){
+        localStorage.setItem("Flat:" + this.flName, JSON.stringify(this))
     }
 }
 
 function logout() {
-  localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentUser");
 }

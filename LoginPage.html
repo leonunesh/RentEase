@@ -19,28 +19,22 @@
         <button type="button" onclick="login()">Register</button>
     </form>
 </body>
-<script src="script.js">
-    function login(email, password) {
-    const data = localStorage.getItem("user:" + email);
+<script src="script.js"></script>
+<script>
+    function login() {
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
 
-    if (!data) {
-        alert("User not found");
-        return false;
+        const result = User.login(email, password);
+
+        if (!result.success) {
+            alert(result.error);
+            return false;
+        }
+
+        localStorage.setItem("currentUser", email);
+        window.location.href = "HomePage.html";
     }
-
-    const user = JSON.parse(data);
-
-    if (user.password !== password) {
-        alert("Incorrect password");
-        return false;
-    }
-
-    // Set current user
-    localStorage.setItem("currentUser", email);
-
-    return true;
-    window.location.href = "HomePage.html"
-}
 </script>
 
 </html>
